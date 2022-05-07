@@ -24,7 +24,9 @@ SECRET_KEY = '4&k9(zhb@-ig-fih%is#xw)*s5ba9p^jm=a7#bp4m%t^(p!ib4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'doommac.pythonanywhere.com'
+]
 
 # Application definition
 

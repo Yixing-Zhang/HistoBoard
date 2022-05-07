@@ -19,7 +19,7 @@ from app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    path('index/', index),
     path('list/', list),
     path('getEventsByLocation/', getEventsByLocation),
     path('getFiguresByEvents/', getFiguresByEvents),

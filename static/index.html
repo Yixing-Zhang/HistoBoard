@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/base.css" />
+    <script>
+
+        function list(){
+            $.ajax({url:"/list/",success:function(result){
+                    console.log("成功",result)
+
+            }});
+        }
+        function getFigures(id){
+            $.ajax({url:"/getFiguresByEvents/?id=" + id,success:function(result){
+                    console.log("成功",result)
+                    let data = result.data;
+                    let html = "";
+                    for(let i=0;i<data.length;i++){
+                        console.log("item",data[i]);
+                        html += " <div onclick='getEmotionsByFigures("+id+")' class='panel-item'>"+data[i].fields.name+" </div>";
+                    }
+
+                    $("#demo2").html(html);
+
+            }});
+        }
+        function eventClick(location) {
+            var showDivTag = $("#showDivTag");
+            if (showDivTag.is(':hidden')) {
+                showDivTag.fadeIn(1000)
+            } else {
+                showDivTag.fadeOut(1000)
+            }
+            $.ajax({
+                url:"/getEventsByLocation/?location=" + location,
+                success:function(result){
+                    console.log("成功",result)
+                    let data = result.data;
+                    let html = "";
+                    for(let i=0;i<data.length;i++){
+                        console.log("item",data[i]);
+                        html += " <div onclick='getFigures("+data[i].pk+")' class='panel-item'>"+data[i].fields.description+" </div>";
+                    }
+
+                    $("#demo").html(html);
+
+            }});
+        }
+        function getEmotionsByFigures(location) {
+            $.ajax({
+                url:"/getEmotionsByFigures/?id=" + location,
+                success:function(result){
+                    console.log("成功",result)
+                    let data = result.data;
+                    let html = "";
+                    for(let i=0;i<data.length;i++){
+                        console.log("item",data[i]);
+                        html += " <div class='panel-item'><span style='margin-right: 2px;' class='label label-danger'>"+data[i].fields.emotions+"</span>"+data[i].fields.text+" </div>";
+                    }
+
+                    $("#demo3").html(html);
+
+            }});
+        }
+        $(function() {// 初始化内容
+            list();
+        });
+    </script>
+    <title>首页</title>
+</head>
+<body style="background-color: antiquewhite;">
+<div class="container">
+    <div class="row" style="height: 50px;">
+
+    </div>
+    <div style="position: relative">
+        <div id="showDivTag" style="position: absolute;top: 0;left: 0;display: none;">
+            <div style="display: flex;">
+                <div class="panel panel-info showDivTag-item" style="width: 200px;">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#demo">
+                        <h3 class="panel-title">
+                            <div style="display: flex;justify-content:space-around">
+                                <div style="text-align: center;flex-grow:5">
+                                    事件
+                                </div>
+                                <div style="flex-grow:1;text-align: right;">
+											<span class="label label-info">
+												<span class="glyphicon glyphicon-chevron-down"></span>
+											</span>
+
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="demo" class="collapse in">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info showDivTag-item" style="width: 200px;">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#demo2">
+                        <h3 class="panel-title">
+                            <div style="display: flex;justify-content:space-around">
+                                <div style="text-align: center;flex-grow:5">
+                                    人物
+                                </div>
+                                <div style="flex-grow:1;text-align: right;">
+											<span class="label label-info">
+												<span class="glyphicon glyphicon-chevron-down"></span>
+											</span>
+
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="demo2" class="collapse in">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info showDivTag-item" style="width: 200px;">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#demo3">
+                        <h3 class="panel-title">
+                            <div style="display: flex;justify-content:space-around">
+                                <div style="text-align: center;flex-grow:5">
+                                    情感
+                                </div>
+                                <div style="flex-grow:1;text-align: right;">
+											<span class="label label-info">
+												<span class="glyphicon glyphicon-chevron-down"></span>
+											</span>
+
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="demo3" class="collapse in">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="eventsDiv" style="top:47%;left: 35%;" onclick="eventClick('秦')">
+                <div>秦</div>
+            </div>
+            <div class="eventsDiv" style="top:37%;left: 49%;" onclick="eventClick('晉')">
+                <div>晉</div>
+            </div>
+            <div class="eventsDiv" style="top:37%;left: 63%;" onclick="eventClick('衛')">
+                <div>衛</div>
+            </div>
+            <div class="eventsDiv" style="top:30%;left: 74%;" onclick="eventClick('齊')">
+                <div>齊</div>
+            </div>
+            <div class="eventsDiv" style="top:41%;left: 67%;" onclick="eventClick('曹')">
+                <div>曹</div>
+            </div>
+            <div class="eventsDiv" style="top:46%;left: 67%;" onclick="eventClick('宋')">
+                <div>宋</div>
+            </div>
+         <div class="eventsDiv" style="top:71%;left: 57%;" onclick="eventClick('楚')">
+                <div>楚</div>
+            </div>
+        <!-- <div class="eventsDiv" style="top:47%;left: 35%;" onclick="eventClick('周')">
+                <div>周</div>
+            </div>-->
+         <div class="eventsDiv" style="top:35%;left: 56%;" onclick="eventClick('狄')">
+                <div>狄</div>
+            </div>
+        <div class="eventsDiv" style="top:31%;left: 67%;" onclick="eventClick('五鹿')">
+                <div>五鹿</div>
+            </div>
+        </div>
+
+        <img src="img/bc.jpg" width="100%" />
+    </div>
+</div>
+</body>
+</html>

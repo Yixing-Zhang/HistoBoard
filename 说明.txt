@@ -1,0 +1,8 @@
+pip install django==2.0.1
+
+
+
+后台管理员界面
+http://127.0.0.1:8000/admin
+root
+root/root123!@#

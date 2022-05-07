@@ -1,0 +1,20 @@
+.eventsDiv{
+	border:2px solid #ffcc00;
+	background:#fffff7;
+	z-index: 10;
+	position: absolute;
+	padding: 5px;
+	font-size: 15px;
+	background:rgba(255,255,255,0.3);
+}
+.panel-item{
+	background:#d9edf7;
+	margin-bottom: 3px;
+	border-radius: 5px;
+	padding: 5px;
+}
+.showDivTag-item{
+	z-index: 20;
+	margin-top: 10px;
+	margin-left: 10px;
+}
